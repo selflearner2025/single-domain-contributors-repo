@@ -4,6 +4,6 @@ metadata:
   name: contributions-management-app-cm-qa
 data:
   artifactName: bpmn-poc.tar.gz
-  artifactSha256: "chaning claims in qa for single domain"
+  artifactSha256: "chaning contributors  in qa for single domain"
   # command sha256sum bpmn-poc.tar.gz
   artifactUrl: "abcd.efgh"
