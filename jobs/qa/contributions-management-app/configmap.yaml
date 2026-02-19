@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: claims-management-app-cm-qa
+  name: contributions-management-app-cm-qa
 data:
   artifactName: bpmn-poc.tar.gz
   artifactSha256: "chaning claims in qa for single domain"
