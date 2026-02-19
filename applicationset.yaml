@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: contributions-domain-based-applicationset-multienv
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/selflearner2025/single-domain-contributors-repo.git
+        revision: test
+        directories:
+          - path: jobs/*/*   # matches jobs/dev/claims-management-app and jobs/qa/claims-management-app
+  template:
+    metadata:
+      name: '{{path[1]}}-{{path.basename}}-application'
+      # e.g. dev-claims-management-app-application, qa-claims-management-app-application
+      labels:
+        env: '{{path[1]}}'           # dev, qa
+                # claims-domain, violations-domain
+        app: '{{path.basename}}'     # claims-management-app, another-claims-app
+        managed-by: argocd
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/selflearner2025/single-domain-contributors-repo.git
+        targetRevision: test
+        path: '{{path}}'             # e.g. jobs/dev/claims-domain/claims-management-app
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: singlenamespace-singledomain
+      syncPolicy:
+        automated: {}
+         
+        syncOptions:
+          - CreateNamespace=true
